@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Evgenii 9000</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f0f2f5;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            background-color: #2c3e50;
+            color: white;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-image: url('evgenii.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 3px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            margin-bottom: 12px;
+            flex-shrink: 0;
+        }
+        header h1 {
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* ----- НОВЫЙ БЛОК ДАШБОРДА ----- */
+        .dashboard {
+            background: white;
+            padding: 25px 30px 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .dashboard h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 18px 16px 16px;
+            border: 1px solid #e9ecef;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+        }
+        .card-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title i {
+            color: #2c3e50;
+            width: 22px;
+        }
+        .card-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1a252f;
+        }
+        .card-desc {
+            font-size: 0.95rem;
+            color: #555;
+        }
+        .card-sub {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 4px;
+        }
+        .refresh-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .refresh-btn button {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 32px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .refresh-btn button:hover {
+            background: #1a252f;
+        }
+        .update-time {
+            text-align: right;
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 12px;
+        }
+
+        /* ----- СТАРЫЕ СТИЛИ (контакты, форма) ----- */
+        .contacts {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .contact-list {
+            list-style: none;
+        }
+        .contact-list li {
+            margin: 10px 0;
+            display: flex;
+            align-items: stretch;
+            position: relative;
+        }
+        .contact-list i {
+            font-size: 24px;
+            width: 60px;
+            min-width: 60px;
+            text-align: center;
+            color: #2c3e50;
+            background-color: rgba(44, 62, 80, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px 0 0 5px;
+            z-index: 1;
+        }
+        .contact-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-left: none;
+            border-radius: 0 5px 5px 0;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            background-color: #f8f9fa;
+            margin-left: -1px;
+            position: relative;
+            flex-grow: 1;
+            cursor: pointer;
+            text-align: left;
+        }
+        .contact-btn:hover {
+            background-color: #2c3e50;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+        .contact-btn:hover i {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .form-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2c3e50;
+        }
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #1a252f;
+        }
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: 500;
+        }
+        .success-message.show {
+            display: block;
+        }
+        .copy-feedback {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 999;
+        }
+        .copy-feedback.show {
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            header {
+                padding: 30px 0;
+            }
+            .contact-list i {
+                width: 50px;
+                min-width: 50px;
+                font-size: 20px;
+            }
+            .logo-circle {
+                width: 80px;
+                height: 80px;
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-circle"></div>
+            <!-- Трекер iplogger удалён -->
+        </header>
+
+        <!-- НОВЫЙ БЛОК: ДАШБОРД -->
+        <section class="dashboard">
+            
+            <div class="grid" id="dashboardGrid">
+                <!-- Карточки будут заполнены скриптом -->
+            </div>
+            <div class="refresh-btn">
+                <button onclick="refreshAll()"><i class="fas fa-sync-alt"></i> Обновить данные</button>
+            </div>
+            <div class="update-time" id="updateTime">
+                <i class="far fa-clock"></i> Обновлено: <span id="timeText">--</span>
+            </div>
+        </section>
+
+        <!-- Блок контактов (без изменений) -->
+        <section class="contacts">
+            <ul class="contact-list">
+                <li>
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:evgenii@9000.slmail.me" class="contact-btn" target="_blank">Evgenii@9000.slmail.me</a>
+                </li>
+                <li>
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:Evgenii9000@proton.me" class="contact-btn" target="_blank">Evgenii9000@proton.me</a>
+                </li>
+                <li>
+                    <i class="fab fa-telegram-plane"></i>
+                    <a href="https://t.me/Evgenii9000" class="contact-btn" target="_blank">Telegram</a>
+                </li>
+                <li>
+                    <i class="fab fa-telegram-plane"></i>
+                    <a href="https://t.me/evgeniigusev" class="contact-btn" target="_blank">Telegram</a>
+                </li>
+                <li>
+                    <i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/79126137250" class="contact-btn" target="_blank">WhatsApp</a>
+                </li>
+                <li>
+                    <i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/79000448665" class="contact-btn" target="_blank">WhatsApp</a>
+                </li>
+                <li>
+                    <i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/79920904448" class="contact-btn" target="_blank">WhatsApp</a>
+                </li>
+                <li>
+                    <i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/79920941860" class="contact-btn" target="_blank">WhatsApp</a>
+                </li>
+                <li>
+                    <i class="fas fa-phone"></i>
+                    <a href="https://www.0xchat.com/link/nostr?value=nostr%3Anprofile1qqs9v2sjxzw9z2tlctpg5l9eh4apvqgw7z526qnj6r5r3rmsqt4ex8qxs5mwt" class="contact-btn" target="_blank">Oxchat</a>
+                </li>
+                <li>
+                    <i class="fas fa-key"></i>
+                    <a href="#" class="contact-btn copy-btn" data-copy="npub12c4pyvyu2y5hlskz3f7tn0t6zcqsau9g45p8958g8z8hqqhtjvwq9f6kk4">Nostr (копировать ключ)</a>
+                </li>
+                <li>
+                    <i class="fas fa-shield-alt"></i>                  
+                    <a href="https://bastyon.com/evgenii9000" class="contact-btn" target="_blank">Bastyon</a>
+                </li>
+                <li>
+                    <i class="fas fa-phone"></i>
+                    <a href="https://forta.chat/#/invite?ref=PEUfQ3fioT1LWEehumALFQiExZfRc5K3RH" class="contact-btn" target="_blank">Forta Chat</a>
+                </li>
+                <li>
+                    <i class="fas fa-phone"></i>
+                    <a href="sip:evgeniig@sip.linphone.org" class="contact-btn" target="_blank">Linphone</a>
+                </li>
+                <li>
+                    <i class="fas fa-lock"></i>
+                    <a href="https://signal.me/#eu/8LHxqBiGWsqx6xNnfofgKt1FC2z4ZptxBWxwXr6o4xrSmcaq425NhazskIYsnnZg" class="contact-btn" target="_blank">Signal</a>
+                </li>
+                <li>
+                    <i class="fas fa-lock"></i>
+                    <a href="https://i.delta.chat/#02FE7735FF8D267B2A9F15E99840DB51F0FD232A&v=3&i=3NwsDAA-QFe_GA3rIpUcws35&s=nxE3WTWOVf5YZ2MvyTUzRQGD&a=eg77707%40mail.ru&n=EA" class="contact-btn" target="_blank">Delta Chat</a>
+                </li>
+                <li>
+                    <i class="fas fa-shield-alt"></i>
+                    <a href="https://teleguard.com/" class="contact-btn teleguard-btn" target="_blank" data-copy="25EKW2ZFR">TeleGuard 25EKW2ZFR</a>
+                </li>
+                <li>
+                    <i class="fas fa-cloud"></i>
+                    <a href="https://mega.nz/C!ScBAGAzI" class="contact-btn">MEGA</a>
+                </li>
+                <li>
+                    <i class="fab fa-microsoft"></i>
+                    <a href="https://teams.live.com/l/invite/FEAw2AEltVkF5ujaQE?v=g1" class="contact-btn" target="_blank">Microsoft Teams</a>
+                </li>
+                <li>
+                    <i class="fab fa-google"></i>
+                    <a href="https://meet.google.com/jes-mwxs-uco" class="contact-btn" target="_blank">Google Meet</a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Форма (без изменений) -->
+        <section class="form-section">
+            <h2>Написать сообщение</h2>
+            <form id="contactForm" action="https://formspree.io/f/xwvzbojz" method="POST">
+                <div class="form-group">
+                    <label for="name"><h3>Имя:</h3></label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email"><h3>Электронная почта:</h3></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message"><h3>Сообщение:</h3>
+                    Напишите кто Вы и как с Вами связаться </label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Отправить</button>
+            </form>
+        </section>
+
+        <div id="successMessage" class="success-message">
+            Ваше сообщение отправлено. 
+            <br>
+            Свяжусь с Вами в ближайшее время. 
+            <br>
+            Для экстренной связи используйте все указанные выше контакты. 
+        </div>
+    </div>
+
+    <div id="copyFeedback" class="copy-feedback">Ключ скопирован в буфер обмена</div>
+
+    <script>
+        // ----- JavaScript для дашборда -----
+
+        // Список городов для погоды
+        const cities = [
+            { name: 'Москва', id: 'Moscow' },
+            { name: 'Екатеринбург', id: 'Yekaterinburg' },
+            { name: 'Санкт-Петербург', id: 'Saint Petersburg' },
+            { name: 'Стокгольм', id: 'Stockholm' }
+        ];
+
+        // Функция обновления времени
+        function setUpdateTime() {
+            const now = new Date();
+            const str = now.toLocaleString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('timeText').textContent = str;
+        }
+
+        // Функция создания карточки с данными
+        function createCard(title, icon, value, desc, sub = '') {
+            return `
+                <div class="card">
+                    <div class="card-title"><i class="${icon}"></i> ${title}</div>
+                    <div class="card-value">${value}</div>
+                    <div class="card-desc">${desc}</div>
+                    ${sub ? `<div class="card-sub">${sub}</div>` : ''}
+                </div>
+            `;
+        }
+
+        // Загрузка погоды для всех городов
+        async function fetchWeather() {
+            const container = document.getElementById('dashboardGrid');
+            // Показываем заглушку
+            container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:20px;">Загрузка данных...</div>';
+
+            try {
+                // Запрашиваем погоду для каждого города параллельно
+                const weatherPromises = cities.map(async (city) => {
+                    const url = `https://wttr.in/${city.id}?format=j1&lang=ru`;
+                    const resp = await fetch(url);
+                    if (!resp.ok) throw new Error(`Ошибка погоды для ${city.name}`);
+                    const data = await resp.json();
+                    const current = data.current_condition[0];
+                    const temp = current.temp_C;
+                    const desc = current.weatherDesc[0].value;
+                    return { name: city.name, temp, desc };
+                });
+
+                const weatherResults = await Promise.allSettled(weatherPromises);
+                // Фильтруем успешные
+                const weatherData = weatherResults
+                    .filter(r => r.status === 'fulfilled')
+                    .map(r => r.value);
+
+                // Теперь загружаем курсы валют и биткоин
+                const forexData = await fetchForex();
+                const btcData = await fetchBitcoin();
+
+                // Формируем HTML для карточек
+                let cardsHtml = '';
+
+                // Карточки погоды
+                weatherData.forEach(w => {
+                    cardsHtml += createCard(
+                        `🌤 ${w.name}`,
+                        'fas fa-cloud-sun',
+                        `${w.temp}°C`,
+                        w.desc
+                    );
+                });
+
+                // Если погода не загрузилась ни для одного города, покажем ошибку
+                if (weatherData.length === 0) {
+                    cardsHtml += createCard(
+                        'Погода',
+                        'fas fa-exclamation-triangle',
+                        '--',
+                        'Не удалось загрузить данные',
+                        'Проверьте интернет'
+                    );
+                }
+
+                // Курсы валют
+                if (forexData) {
+                    cardsHtml += createCard(
+                        'Курсы валют',
+                        'fas fa-coins',
+                        `$${forexData.usdRub} ₽`,
+                        `€${forexData.eurRub} ₽ • 1 SEK = ${forexData.sekRub} ₽`,
+                        `USD/RUB, EUR/RUB, SEK/RUB`
+                    );
+                } else {
+                    cardsHtml += createCard(
+                        'Курсы валют',
+                        'fas fa-coins',
+                        '--',
+                        'Ошибка загрузки'
+                    );
+                }
+
+                // Биткоин
+                if (btcData) {
+                    cardsHtml += createCard(
+                        'Биткоин',
+                        'fab fa-bitcoin',
+                        `$${btcData.usd}`,
+                        `€${btcData.eur}`,
+                        `24ч: ${btcData.change}%`
+                    );
+                } else {
+                    cardsHtml += createCard(
+                        'Биткоин',
+                        'fab fa-bitcoin',
+                        '--',
+                        'Ошибка загрузки'
+                    );
+                }
+
+                container.innerHTML = cardsHtml;
+                setUpdateTime();
+            } catch (e) {
+                container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:20px; color:red;">Ошибка загрузки данных. Попробуйте обновить.</div>`;
+            }
+        }
+
+        // Загрузка курсов валют
+        async function fetchForex() {
+            try {
+                const url = 'https://api.exchangerate-api.com/v4/latest/USD';
+                const resp = await fetch(url);
+                if (!resp.ok) throw new Error('Forex API error');
+                const data = await resp.json();
+                const rub = data.rates.RUB;
+                const eur = data.rates.EUR;
+                const sek = data.rates.SEK;
+                // пересчёт к рублю
+                const usdRub = rub.toFixed(2);
+                const eurRub = (rub / eur).toFixed(2);
+                const sekRub = (rub / sek).toFixed(2);
+                return { usdRub, eurRub, sekRub };
+            } catch (e) {
+                console.error('Forex error:', e);
+                return null;
+            }
+        }
+
+        // Загрузка биткоина
+        async function fetchBitcoin() {
+            try {
+                const url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,eur&include_24hr_change=true';
+                const resp = await fetch(url);
+                if (!resp.ok) throw new Error('BTC API error');
+                const data = await resp.json();
+                const btc = data.bitcoin;
+                return {
+                    usd: btc.usd.toFixed(0),
+                    eur: btc.eur.toFixed(0),
+                    change: btc.usd_24h_change.toFixed(2)
+                };
+            } catch (e) {
+                console.error('BTC error:', e);
+                return null;
+            }
+        }
+
+        // Обновить всё
+        async function refreshAll() {
+            await fetchWeather();
+        }
+
+        // Запуск при загрузке и каждые 5 минут
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshAll();
+            setInterval(refreshAll, 300000); // 5 минут
+        });
+
+        // ------ Обработка формы и копирования (из оригинального кода) ------
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var form = e.target;
+            var formData = new FormData(form);
+            fetch(form.action, {
+                method: form.method,
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(function(response) {
+                if (response.ok) {
+                    form.style.display = 'none';
+                    document.getElementById('successMessage').classList.add('show');
+                } else {
+                    alert('Ошибка при отправке формы. Попробуйте ещё раз.');
+                }
+            }).catch(function(error) {
+                alert('Ошибка при отправке формы. Попробуйте ещё раз.');
+            });
+        });
+
+        (function() {
+            // Для кнопок с классом copy-btn (Nostr)
+            const copyBtns = document.querySelectorAll('.copy-btn');
+            const feedback = document.getElementById('copyFeedback');
+            let timeoutId = null;
+
+            copyBtns.forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const textToCopy = this.getAttribute('data-copy');
+                    if (!textToCopy) return;
+
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(textToCopy).then(() => {
+                            showFeedback();
+                        }).catch(() => {
+                            fallbackCopy(textToCopy);
+                        });
+                    } else {
+                        fallbackCopy(textToCopy);
+                    }
+                });
+            });
+
+            const teleguardBtn = document.querySelector('.teleguard-btn');
+            if (teleguardBtn) {
+                teleguardBtn.addEventListener('click', function(e) {
+                    const textToCopy = this.getAttribute('data-copy');
+                    if (textToCopy) {
+                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                            navigator.clipboard.writeText(textToCopy).then(() => {
+                                showFeedback();
+                            }).catch(() => {
+                                fallbackCopy(textToCopy);
+                            });
+                        } else {
+                            fallbackCopy(textToCopy);
+                        }
+                    }
+                });
+            }
+
+            function fallbackCopy(text) {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                textarea.style.left = '-9999px';
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    const success = document.execCommand('copy');
+                    if (success) {
+                        showFeedback();
+                    } else {
+                        alert('Не удалось скопировать ключ. Пожалуйста, скопируйте вручную: ' + text);
+                    }
+                } catch (err) {
+                    alert('Не удалось скопировать ключ. Пожалуйста, скопируйте вручную: ' + text);
+                }
+                document.body.removeChild(textarea);
+            }
+
+            function showFeedback() {
+                feedback.classList.add('show');
+                if (timeoutId) clearTimeout(timeoutId);
+                timeoutId = setTimeout(function() {
+                    feedback.classList.remove('show');
+                    timeoutId = null;
+                }, 2500);
+            }
+        })();
+    </script>
+</body>
+</html>

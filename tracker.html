@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курс валют - Currency Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f0f6fc;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: #8b949e;
+            font-size: 14px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #21262d;
+            padding-bottom: 20px;
+        }
+        .rate-card {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .rate-label {
+            font-size: 14px;
+            color: #8b949e;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .rate-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #58a6ff;
+        }
+        .rate-value .currency {
+            font-size: 18px;
+            font-weight: 400;
+            color: #8b949e;
+            margin-left: 8px;
+        }
+        .rate-date {
+            font-size: 13px;
+            color: #8b949e;
+            text-align: right;
+        }
+        .rate-date span {
+            display: block;
+            font-size: 11px;
+            color: #484f58;
+            margin-top: 4px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .info-item {
+            background: #0d1117;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            padding: 14px 18px;
+        }
+        .info-item .label {
+            font-size: 11px;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .info-item .value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-top: 4px;
+        }
+        .badge {
+            display: inline-block;
+            background: #238636;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #21262d;
+            font-size: 12px;
+            color: #484f58;
+            text-align: center;
+        }
+        .footer a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #8b949e;
+        }
+        .status .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #3fb950;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            .rate-value { font-size: 28px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .rate-card { flex-direction: column; align-items: stretch; text-align: center; }
+            .rate-date { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+            <div>
+                <h1>💱 Currency Tracker</h1>
+                <div class="subtitle">Актуальные курсы валют</div>
+            </div>
+            <span class="badge">● ЖИВОЙ</span>
+        </div>
+
+        <div class="rate-card">
+            <div>
+                <div class="rate-label">USD / RUB</div>
+                <div class="rate-value">
+                    91.52
+                    <span class="currency">₽</span>
+                </div>
+                <div class="status" style="margin-top: 8px;">
+                    <span class="dot"></span>
+                    Данные обновлены
+                </div>
+            </div>
+            <div class="rate-date">
+                23 августа 2026
+                <span>Последнее обновление: 06:00 UTC</span>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="label">Базовая валюта</div>
+                <div class="value">🇺🇸 USD</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Целевая валюта</div>
+                <div class="value">🇷🇺 RUB</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Источник данных</div>
+                <div class="value">Exchange Rate API</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Обновление</div>
+                <div class="value">Каждое воскресенье</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px; background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 14px 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div>
+                    <div style="font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px;">Статус</div>
+                    <div style="font-size: 14px; font-weight: 500; color: #3fb950;">✅ Автоматический трекинг активен</div>
+                </div>
+                <div style="font-size: 12px; color: #484f58;">
+                    Следующее обновление: 30 августа 2026
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Проект <strong>Currency Tracker</strong> · 
+            Автоматические коммиты раз в неделю · 
+            <a href="#">GitHub</a>
+        </div>
+    </div>
+</body>
+</html>
